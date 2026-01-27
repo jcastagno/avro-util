@@ -90,16 +90,16 @@ public class FastGenericSerializerGeneratorTest_shouldWriteGenericRecordWithEnum
             (encoder).setItemCount(testEnumUnionArray0 .size());
             for (int counter1 = 0; (counter1 <testEnumUnionArray0 .size()); counter1 ++) {
                 (encoder).startItem();
-                GenericEnumSymbol union0 = null;
-                union0 = ((List<GenericEnumSymbol> ) testEnumUnionArray0).get(counter1);
-                if (union0 == null) {
+                GenericEnumSymbol union_NULL_ENUM0 = null;
+                union_NULL_ENUM0 = ((List<GenericEnumSymbol> ) testEnumUnionArray0).get(counter1);
+                if (union_NULL_ENUM0 == null) {
                     (encoder).writeIndex(0);
                     (encoder).writeNull();
                 } else {
-                    if ((union0 instanceof GenericEnumSymbol)&&"com.linkedin.avro.fastserde.generated.avro.testEnum".equals(((GenericEnumSymbol) union0).getSchema().getFullName())) {
+                    if ((union_NULL_ENUM0 instanceof GenericEnumSymbol)&&"com.linkedin.avro.fastserde.generated.avro.testEnum".equals(((GenericEnumSymbol) union_NULL_ENUM0).getSchema().getFullName())) {
                         (encoder).writeIndex(1);
                         int valueToWrite3;
-                        Object enumValue3 = union0;
+                        Object enumValue3 = union_NULL_ENUM0;
                         if (enumValue3 instanceof Enum) {
                             valueToWrite3 = ((Enum) enumValue3).ordinal();
                         } else {

@@ -214,6 +214,12 @@ public class SchemaAssistant<T extends GenericData> {
       return "Array_of_" + getTypeName(schema.getElementType());
     } else if (Schema.Type.MAP.equals(schemaType)) {
       return "Map_of_" + getTypeName(schema.getValueType());
+    } else if (Schema.Type.UNION.equals(schemaType)) {
+      StringBuilder sb = new StringBuilder("union");
+      for (Schema unionType : schema.getTypes()) {
+        sb.append("_").append(getTypeName(unionType));
+      }
+      return sb.toString();
     } else {
       return schema.getType().name();
     }

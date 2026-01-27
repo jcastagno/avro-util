@@ -54,17 +54,17 @@ public class FastSerdeLogicalTypesDefined_SpecificSerializer_229156053
             (encoder).setItemCount(arrayOfUnionOfDateAndTimestampMillis0 .size());
             for (int counter0 = 0; (counter0 <arrayOfUnionOfDateAndTimestampMillis0 .size()); counter0 ++) {
                 (encoder).startItem();
-                Object union0 = null;
-                union0 = ((List<Object> ) arrayOfUnionOfDateAndTimestampMillis0).get(counter0);
-                if (union0 instanceof LocalDate) {
+                Object union_INT_LONG0 = null;
+                union_INT_LONG0 = ((List<Object> ) arrayOfUnionOfDateAndTimestampMillis0).get(counter0);
+                if (union_INT_LONG0 instanceof LocalDate) {
                     (encoder).writeIndex(0);
-                    Object convertedValue2 = union0;
+                    Object convertedValue2 = union_INT_LONG0;
                     convertedValue2 = Conversions.convertToRawType(convertedValue2, this.logicalTypeSchema__59052268, this.logicalTypeSchema__59052268 .getLogicalType(), this.conversion_date);
                     (encoder).writeInt(((Integer) convertedValue2));
                 } else {
-                    if (union0 instanceof Instant) {
+                    if (union_INT_LONG0 instanceof Instant) {
                         (encoder).writeIndex(1);
-                        Object convertedValue3 = union0;
+                        Object convertedValue3 = union_INT_LONG0;
                         convertedValue3 = Conversions.convertToRawType(convertedValue3, this.logicalTypeSchema_1074306973, this.logicalTypeSchema_1074306973 .getLogicalType(), this.conversion_timestamp_millis);
                         (encoder).writeLong(((Long) convertedValue3));
                     }

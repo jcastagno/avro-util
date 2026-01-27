@@ -40,15 +40,15 @@ public class FastSerdeLogicalTypesUndefined_SpecificSerializer_1982763418
             (encoder).setItemCount(arrayOfUnionOfDateAndTimestampMillis0 .size());
             for (int counter0 = 0; (counter0 <arrayOfUnionOfDateAndTimestampMillis0 .size()); counter0 ++) {
                 (encoder).startItem();
-                Object union0 = null;
-                union0 = ((List<Object> ) arrayOfUnionOfDateAndTimestampMillis0).get(counter0);
-                if (union0 instanceof Integer) {
+                Object union_INT_LONG0 = null;
+                union_INT_LONG0 = ((List<Object> ) arrayOfUnionOfDateAndTimestampMillis0).get(counter0);
+                if (union_INT_LONG0 instanceof Integer) {
                     (encoder).writeIndex(0);
-                    (encoder).writeInt(((Integer) union0));
+                    (encoder).writeInt(((Integer) union_INT_LONG0));
                 } else {
-                    if (union0 instanceof Long) {
+                    if (union_INT_LONG0 instanceof Long) {
                         (encoder).writeIndex(1);
-                        (encoder).writeLong(((Long) union0));
+                        (encoder).writeLong(((Long) union_INT_LONG0));
                     }
                 }
             }

@@ -10,7 +10,7 @@ import org.apache.avro.generic.IndexedRecord;
 import org.apache.avro.io.Decoder;
 import org.apache.avro.util.Utf8;
 
-public class Map_of_UNION_GenericDeserializer_2140000109_2140000109
+public class Map_of_union_NULL_record_GenericDeserializer_2140000109_2140000109
     implements FastDeserializer<Map<Utf8, IndexedRecord>>
 {
 
@@ -19,7 +19,7 @@ public class Map_of_UNION_GenericDeserializer_2140000109_2140000109
     private final Schema mapValueOptionSchema0;
     private final Schema field0;
 
-    public Map_of_UNION_GenericDeserializer_2140000109_2140000109(Schema readerSchema) {
+    public Map_of_union_NULL_record_GenericDeserializer_2140000109_2140000109(Schema readerSchema) {
         this.readerSchema = readerSchema;
         this.mapMapValueSchema0 = readerSchema.getValueType();
         this.mapValueOptionSchema0 = mapMapValueSchema0 .getTypes().get(1);

@@ -29,13 +29,13 @@ import org.apache.avro.generic.GenericFixed;
 import org.apache.avro.io.Decoder;
 import org.apache.avro.util.Utf8;
 
-public class Map_of_UNION_SpecificDeserializer_971650236_971650236
+public class Map_of_union_NULL_TestRecord_SpecificDeserializer_971650236_971650236
     implements FastDeserializer<Map<Utf8, TestRecord>>
 {
 
     private final Schema readerSchema;
 
-    public Map_of_UNION_SpecificDeserializer_971650236_971650236(Schema readerSchema) {
+    public Map_of_union_NULL_TestRecord_SpecificDeserializer_971650236_971650236(Schema readerSchema) {
         this.readerSchema = readerSchema;
     }
 

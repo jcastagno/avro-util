@@ -120,17 +120,17 @@ public class FastSerdeLogicalTypesTest1_SpecificSerializer_1007574890
             for (CharSequence key1 : ((Map<CharSequence, Object> ) mapOfUnionsOfDateAndTimestampMillis0).keySet()) {
                 (encoder).startItem();
                 (encoder).writeString(key1);
-                Object union0 = null;
-                union0 = ((Map<CharSequence, Object> ) mapOfUnionsOfDateAndTimestampMillis0).get(key1);
-                if (union0 instanceof LocalDate) {
+                Object union_INT_LONG0 = null;
+                union_INT_LONG0 = ((Map<CharSequence, Object> ) mapOfUnionsOfDateAndTimestampMillis0).get(key1);
+                if (union_INT_LONG0 instanceof LocalDate) {
                     (encoder).writeIndex(0);
-                    Object convertedValue3 = union0;
+                    Object convertedValue3 = union_INT_LONG0;
                     convertedValue3 = Conversions.convertToRawType(convertedValue3, this.logicalTypeSchema__59052268, this.logicalTypeSchema__59052268 .getLogicalType(), this.conversion_date);
                     (encoder).writeInt(((Integer) convertedValue3));
                 } else {
-                    if (union0 instanceof Instant) {
+                    if (union_INT_LONG0 instanceof Instant) {
                         (encoder).writeIndex(1);
-                        Object convertedValue4 = union0;
+                        Object convertedValue4 = union_INT_LONG0;
                         convertedValue4 = Conversions.convertToRawType(convertedValue4, this.logicalTypeSchema_1074306973, this.logicalTypeSchema_1074306973 .getLogicalType(), this.conversion_timestamp_millis);
                         (encoder).writeLong(((Long) convertedValue4));
                     }

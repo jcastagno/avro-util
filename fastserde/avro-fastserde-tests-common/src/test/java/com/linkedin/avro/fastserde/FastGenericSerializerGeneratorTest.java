@@ -443,6 +443,137 @@ public class FastGenericSerializerGeneratorTest {
   }
 
   @Test(groups = {"serializationTest"})
+  public void shouldWriteArrayOfUnionPrimitives() {
+    // given - this tests the fix for the bug where union types in arrays
+    // caused invalid Java variable names to be generated (e.g., "union[null, string]0")
+    Schema unionSchema = Schema.createUnion(Arrays.asList(
+        Schema.create(Schema.Type.NULL),
+        Schema.create(Schema.Type.STRING)
+    ));
+    Schema arrayOfUnionSchema = Schema.createArray(unionSchema);
+
+    GenericData.Array<CharSequence> unionArray = new GenericData.Array<>(0, arrayOfUnionSchema);
+    unionArray.add(new Utf8("test1"));
+    unionArray.add(null);
+    unionArray.add(new Utf8("test2"));
+
+    // when
+    List<CharSequence> result = decodeRecord(arrayOfUnionSchema, dataAsBinaryDecoder(unionArray));
+
+    // then
+    Assert.assertEquals(result.size(), 3);
+    Assert.assertEquals(result.get(0).toString(), "test1");
+    Assert.assertNull(result.get(1));
+    Assert.assertEquals(result.get(2).toString(), "test2");
+  }
+
+  @Test(groups = {"serializationTest"})
+  public void shouldWriteMapOfUnionPrimitives() {
+    // given - this tests the fix for the bug where union types in map values
+    // caused invalid Java variable names to be generated
+    Schema unionSchema = Schema.createUnion(Arrays.asList(
+        Schema.create(Schema.Type.NULL),
+        Schema.create(Schema.Type.STRING)
+    ));
+    Schema mapOfUnionSchema = Schema.createMap(unionSchema);
+
+    Map<String, CharSequence> unionMap = new HashMap<>();
+    unionMap.put("key1", new Utf8("value1"));
+    unionMap.put("key2", null);
+    unionMap.put("key3", new Utf8("value3"));
+
+    // when
+    Map<Utf8, CharSequence> result = decodeRecord(mapOfUnionSchema, dataAsBinaryDecoder(unionMap, mapOfUnionSchema));
+
+    // then
+    Assert.assertEquals(result.size(), 3);
+    Assert.assertEquals(result.get(new Utf8("key1")).toString(), "value1");
+    Assert.assertNull(result.get(new Utf8("key2")));
+    Assert.assertEquals(result.get(new Utf8("key3")).toString(), "value3");
+  }
+
+  @Test(groups = {"serializationTest"})
+  public void shouldWriteRecordWithArrayOfUnionPrimitives() {
+    // given - this tests the exact schema that triggered the original bug report
+    String schemaJson = "{\n" +
+        "  \"type\": \"record\",\n" +
+        "  \"name\": \"TestRecord\",\n" +
+        "  \"namespace\": \"com.linkedin.avro.fastserde.test\",\n" +
+        "  \"fields\": [\n" +
+        "    {\"name\": \"fields\", \"type\": {\"type\": \"array\", \"items\": [\"null\", \"string\"]}}\n" +
+        "  ]\n" +
+        "}";
+    Schema recordSchema = Schema.parse(schemaJson);
+
+    GenericData.Record record = new GenericData.Record(recordSchema);
+    GenericData.Array<CharSequence> fieldsArray = new GenericData.Array<>(0, recordSchema.getField("fields").schema());
+    fieldsArray.add(new Utf8("value1"));
+    fieldsArray.add(null);
+    fieldsArray.add(new Utf8("value2"));
+    record.put("fields", fieldsArray);
+
+    // when
+    GenericRecord result = decodeRecord(recordSchema, dataAsBinaryDecoder(record));
+
+    // then
+    @SuppressWarnings("unchecked")
+    List<CharSequence> resultFields = (List<CharSequence>) result.get("fields");
+    Assert.assertEquals(resultFields.size(), 3);
+    Assert.assertEquals(resultFields.get(0).toString(), "value1");
+    Assert.assertNull(resultFields.get(1));
+    Assert.assertEquals(resultFields.get(2).toString(), "value2");
+  }
+
+  @Test(groups = {"serializationTest"})
+  public void shouldWriteArrayOfMultiTypeUnion() {
+    // given - this tests multi-type unions (not just nullable) to ensure
+    // the naming generates valid identifiers like "union_INT_STRING_DOUBLE"
+    Schema unionSchema = Schema.createUnion(Arrays.asList(
+        Schema.create(Schema.Type.INT),
+        Schema.create(Schema.Type.STRING),
+        Schema.create(Schema.Type.DOUBLE)
+    ));
+    Schema arrayOfUnionSchema = Schema.createArray(unionSchema);
+
+    GenericData.Array<Object> unionArray = new GenericData.Array<>(0, arrayOfUnionSchema);
+    unionArray.add(42);
+    unionArray.add(new Utf8("test"));
+    unionArray.add(3.14);
+
+    // when
+    List<Object> result = decodeRecord(arrayOfUnionSchema, dataAsBinaryDecoder(unionArray));
+
+    // then
+    Assert.assertEquals(result.size(), 3);
+    Assert.assertEquals(result.get(0), 42);
+    Assert.assertEquals(result.get(1).toString(), "test");
+    Assert.assertEquals((Double) result.get(2), 3.14, 0.0001);
+  }
+
+  @Test(groups = {"serializationTest"})
+  public void shouldWriteMapOfMultiTypeUnion() {
+    // given - this tests multi-type unions in map values to ensure
+    // proper variable naming in generated code
+    Schema unionSchema = Schema.createUnion(Arrays.asList(
+        Schema.create(Schema.Type.INT),
+        Schema.create(Schema.Type.STRING)
+    ));
+    Schema mapOfUnionSchema = Schema.createMap(unionSchema);
+
+    Map<String, Object> unionMap = new HashMap<>();
+    unionMap.put("int_value", 100);
+    unionMap.put("string_value", new Utf8("hello"));
+
+    // when
+    Map<Utf8, Object> result = decodeRecord(mapOfUnionSchema, dataAsBinaryDecoder(unionMap, mapOfUnionSchema));
+
+    // then
+    Assert.assertEquals(result.size(), 2);
+    Assert.assertEquals(result.get(new Utf8("int_value")), 100);
+    Assert.assertEquals(result.get(new Utf8("string_value")).toString(), "hello");
+  }
+
+  @Test(groups = {"serializationTest"})
   public void shouldWriteArrayOfRecords() {
     // given
     Schema recordSchema = createRecord("record", createPrimitiveUnionFieldSchema("field", Schema.Type.STRING));

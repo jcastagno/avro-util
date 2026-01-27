@@ -8,14 +8,14 @@ import org.apache.avro.Schema;
 import org.apache.avro.generic.IndexedRecord;
 import org.apache.avro.io.Decoder;
 
-public class UNION_GenericDeserializer_1971822364_1672473580
+public class union_NULL_record_GenericDeserializer_1971822364_1672473580
     implements FastDeserializer<IndexedRecord>
 {
 
     private final Schema readerSchema;
     private final Schema recordRecordSchema0;
 
-    public UNION_GenericDeserializer_1971822364_1672473580(Schema readerSchema) {
+    public union_NULL_record_GenericDeserializer_1971822364_1672473580(Schema readerSchema) {
         this.readerSchema = readerSchema;
         this.recordRecordSchema0 = readerSchema.getTypes().get(1);
     }

@@ -69,15 +69,15 @@ public class FastGenericSerializerGeneratorTest_shouldWriteGenericRecordWithFixe
             (encoder).setItemCount(testFixedUnionArray0 .size());
             for (int counter1 = 0; (counter1 <testFixedUnionArray0 .size()); counter1 ++) {
                 (encoder).startItem();
-                GenericFixed union0 = null;
-                union0 = ((List<GenericFixed> ) testFixedUnionArray0).get(counter1);
-                if (union0 == null) {
+                GenericFixed union_NULL_FIXED0 = null;
+                union_NULL_FIXED0 = ((List<GenericFixed> ) testFixedUnionArray0).get(counter1);
+                if (union_NULL_FIXED0 == null) {
                     (encoder).writeIndex(0);
                     (encoder).writeNull();
                 } else {
-                    if ((union0 instanceof GenericFixed)&&"com.linkedin.avro.fastserde.generated.avro.testFixed".equals(((GenericFixed) union0).getSchema().getFullName())) {
+                    if ((union_NULL_FIXED0 instanceof GenericFixed)&&"com.linkedin.avro.fastserde.generated.avro.testFixed".equals(((GenericFixed) union_NULL_FIXED0).getSchema().getFullName())) {
                         (encoder).writeIndex(1);
-                        (encoder).writeFixed(((GenericFixed) union0).bytes());
+                        (encoder).writeFixed(((GenericFixed) union_NULL_FIXED0).bytes());
                     }
                 }
             }

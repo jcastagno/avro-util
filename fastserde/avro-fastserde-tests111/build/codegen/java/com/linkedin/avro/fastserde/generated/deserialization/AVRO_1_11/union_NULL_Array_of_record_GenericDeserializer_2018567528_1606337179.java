@@ -10,7 +10,7 @@ import org.apache.avro.generic.GenericArray;
 import org.apache.avro.generic.IndexedRecord;
 import org.apache.avro.io.Decoder;
 
-public class UNION_GenericDeserializer_2018567528_1606337179
+public class union_NULL_Array_of_record_GenericDeserializer_2018567528_1606337179
     implements FastDeserializer<List<IndexedRecord>>
 {
 
@@ -18,7 +18,7 @@ public class UNION_GenericDeserializer_2018567528_1606337179
     private final Schema arrayArraySchema0;
     private final Schema arrayArrayElemSchema0;
 
-    public UNION_GenericDeserializer_2018567528_1606337179(Schema readerSchema) {
+    public union_NULL_Array_of_record_GenericDeserializer_2018567528_1606337179(Schema readerSchema) {
         this.readerSchema = readerSchema;
         this.arrayArraySchema0 = readerSchema.getTypes().get(1);
         this.arrayArrayElemSchema0 = arrayArraySchema0 .getElementType();
